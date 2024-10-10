@@ -1,7 +1,13 @@
 import pandas as pd
 import logging
+import matplotlib.pyplot as plt
+import seaborn as sns
 import sys
 import os
+from matplotlib.ticker import FuncFormatter
+
+
+
 
 # Step 1: Define the path to the logs directory
 log_dir = os.path.join(os.getcwd(), 'logs')  # Use current working directory
@@ -96,3 +102,146 @@ def data_overview(data):
         # Count the frequency of each unique value
         value_counts = data[col].value_counts()
         logger.info(f"Value counts for '{col}':\n{value_counts}")
+
+def outliers(data):
+    logger.info("ploting box plot for detecting outliers")
+    # Boxplot to visualize outliers in transaction amounts
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(y=data['Amount'])
+    plt.title('Boxplot of Transaction Amounts')
+    plt.ylabel('Transaction Amount')
+     # Function to format y-axis labels
+    def format_y_func(value, tick_number):
+        return f'{int(value):,}'  # Format as integer with commas
+
+    # Function to format x-axis labels
+    def format_x_func(value, tick_number):
+        return f'{int(value):,}'  # Format as integer with commas
+
+    # Apply the custom formatter to the y-axis
+    plt.gca().yaxis.set_major_formatter(FuncFormatter(format_y_func))
+
+    # Apply the custom formatter to the x-axis
+    plt.gca().xaxis.set_major_formatter(FuncFormatter(format_x_func))
+    plt.show()
+    logger.info("ploting box plot for detecting outliers")
+
+
+
+def distribution_of_amount(data):
+    logger.info("plotting distribution of amount...")
+   
+    # Create the plot
+    plt.figure(figsize=(10, 4))
+    sns.histplot(data['Amount'], bins=30, kde=True)
+
+    # Set titles and labels
+    plt.title('Distribution of Transaction Amounts')
+    plt.xlabel('Transaction Amount')
+    plt.ylabel('Frequency')
+
+    # Function to format y-axis labels
+    def format_y_func(value, tick_number):
+        return f'{int(value):,}'  # Format as integer with commas
+
+    # Function to format x-axis labels
+    def format_x_func(value, tick_number):
+        return f'{int(value):,}'  # Format as integer with commas
+
+    # Apply the custom formatter to the y-axis
+    plt.gca().yaxis.set_major_formatter(FuncFormatter(format_y_func))
+
+    # Apply the custom formatter to the x-axis
+    plt.gca().xaxis.set_major_formatter(FuncFormatter(format_x_func))
+
+    # Show the plot
+    plt.show()
+    logger.info("plot of distribution of amount")
+
+
+
+def amount_by_fraud_result(data):
+    # Boxplot for Amount by Fraud Result
+    logger.info("plotting amount by fraud result...")
+
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='FraudResult', y='Amount', data=data)
+    plt.title('Transaction Amount by Fraud Status')
+    plt.xlabel('Fraud Status (0: No, 1: Yes)')
+    plt.ylabel('Transaction Amount')
+    plt.show()
+
+    # Count plot for Fraud Results
+    plt.figure(figsize=(10, 6))
+    sns.countplot(x='FraudResult', data=data)
+    plt.title('Count of Fraud Results')
+    plt.xlabel('Fraud Status (0: No, 1: Yes)')
+    plt.ylabel('Count')
+    plt.show()
+    logger.info("plotting amount by fraud result.")
+
+def transaction_overtime(data):
+    logger.info("ploting transaction trend over time...")
+    data['TransactionStartTime'] = pd.to_datetime(data['TransactionStartTime'])
+
+    # Group by date and sum amounts
+    daily_transactions = data.groupby(data['TransactionStartTime'].dt.date)['Amount'].sum().reset_index()
+
+    # Plot daily transaction amounts
+    plt.figure(figsize=(12, 6))
+    plt.plot(daily_transactions['TransactionStartTime'], daily_transactions['Amount'])
+    plt.title('Daily Transaction Amounts Over Time')
+    plt.xlabel('Date')
+    plt.ylabel('Total Transaction Amount')
+    plt.xticks(rotation=45)
+    # Function to format y-axis labels
+    def format_y_func(value, tick_number):
+        return f'{int(value):,}'  # Format as integer with commas
+    # Apply the custom formatter to the y-axis
+    plt.gca().yaxis.set_major_formatter(FuncFormatter(format_y_func))
+    plt.show()
+    logger.info("plot of transaction trend over time...")
+
+
+
+def plot_of_product_catagory(data):
+    logger.info("plotting product cataogries by fraud...")
+        # Count plot for Product Categories by Fraud Result
+    plt.figure(figsize=(12, 6))
+    sns.countplot(x='ProductCategory', hue='FraudResult', data=data)
+    plt.title('Product Categories by Fraud Status')
+    plt.xlabel('ProductCategory')
+    plt.ylabel('Count')
+    plt.xticks(rotation=45)
+    plt.legend(title='Fraud Status', loc='upper right', labels=['No', 'Yes'])
+    plt.show()
+
+    # Count plot for Channels by Fraud Result
+    plt.figure(figsize=(12, 6))
+    sns.countplot(x='ChannelId', hue='FraudResult', data=data)
+    plt.title('Channels by Fraud Status')
+    plt.xlabel('ChannelId')
+    plt.ylabel('Count')
+    plt.xticks(rotation=45)
+    plt.legend(title='Fraud Status', loc='upper right', labels=['No', 'Yes'])
+    plt.show()
+    logger.info("plot of product cataogries by fraud...")
+
+def correlation_matrix(data):
+    logger.info("plotting the correlation matrix....")
+     # Encode categorical columns if necessary
+    data['ProductId'] = data['ProductId'].astype('category').cat.codes
+    data['ProductCategory'] = data['ProductCategory'].astype('category').cat.codes
+    data['ChannelId'] = data['ChannelId'].astype('category').cat.codes  # Encode ChannelId if it's categorical
+
+    correlation_data = data[['ProductId', 'ProductCategory', 'ChannelId', 'Amount', 'Value']]
+
+    # Calculate the correlation matrix
+    correlation_matrix = correlation_data.corr()
+
+    # Create a heatmap
+    plt.figure(figsize=(12, 10))  # Increased size for better readability
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', square=True)
+    plt.title('Correlation Heatmap of Selected Features')
+    plt.show()
+    logger.info("plot of  the correlation matrix")
