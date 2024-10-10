@@ -1,0 +1,51 @@
+2024-10-09 07:27:40,228 - INFO - Attempting to load data from data.csv
+2024-10-09 07:27:41,289 - INFO - Successfully loaded data from data.csv
+2024-10-09 07:27:41,727 - INFO - Starting data cleaning process...
+2024-10-09 07:27:41,729 - INFO - Initial data shape: (95662, 16)
+2024-10-09 07:27:41,730 - INFO - Checking for missing values...
+2024-10-09 07:27:41,795 - INFO - Missing values in each column:
+Series([], dtype: int64)
+2024-10-09 07:27:41,805 - INFO - Checking for duplicates...
+2024-10-09 07:27:42,352 - INFO - Removed duplicates: 0 rows removed.
+2024-10-09 07:31:40,813 - INFO - Attempting to load data from data.csv
+2024-10-09 07:31:41,439 - INFO - Successfully loaded data from data.csv
+2024-10-09 07:31:41,755 - INFO - Starting data cleaning process...
+2024-10-09 07:31:41,758 - INFO - Initial data shape: (95662, 16)
+2024-10-09 07:31:41,760 - INFO - Checking for missing values...
+2024-10-09 07:31:41,869 - INFO - Missing values in each column:
+Series([], dtype: int64)
+2024-10-09 07:31:41,884 - INFO - Checking for duplicates...
+2024-10-09 07:31:42,342 - INFO - Removed duplicates: 0 rows removed.
+2024-10-09 07:35:15,873 - INFO - Attempting to load data from data.csv
+2024-10-09 07:35:16,767 - INFO - Successfully loaded data from data.csv
+2024-10-09 07:35:16,997 - INFO - Starting data cleaning process...
+2024-10-09 07:35:16,999 - INFO - Initial data shape: (95662, 16)
+2024-10-09 07:35:17,000 - INFO - Checking for missing values...
+2024-10-09 07:35:17,100 - INFO - Missing values in each column:
+Series([], dtype: int64)
+2024-10-09 07:35:17,108 - INFO - Checking for duplicates...
+2024-10-09 07:35:17,353 - INFO - Removed duplicates: 0 rows removed.
+2024-10-09 07:44:39,210 - INFO - Checking categorical values...
+2024-10-09 07:44:39,308 - INFO - Unique values in 'TransactionId': ['TransactionId_76871' 'TransactionId_73770' 'TransactionId_26203' ...
+ 'TransactionId_82501' 'TransactionId_136354' 'TransactionId_35670']
+2024-10-09 07:44:39,389 - INFO - Unique values in 'BatchId': ['BatchId_36123' 'BatchId_15642' 'BatchId_53941' ... 'BatchId_118602'
+ 'BatchId_70924' 'BatchId_29317']
+2024-10-09 07:44:39,404 - INFO - Unique values in 'AccountId': ['AccountId_3957' 'AccountId_4841' 'AccountId_4229' ... 'AccountId_557'
+ 'AccountId_2476' 'AccountId_1685']
+2024-10-09 07:44:39,424 - INFO - Unique values in 'SubscriptionId': ['SubscriptionId_887' 'SubscriptionId_3829' 'SubscriptionId_222' ...
+ 'SubscriptionId_4806' 'SubscriptionId_3567' 'SubscriptionId_84']
+2024-10-09 07:44:39,443 - INFO - Unique values in 'CustomerId': ['CustomerId_4406' 'CustomerId_4683' 'CustomerId_988' ... 'CustomerId_893'
+ 'CustomerId_2892' 'CustomerId_2067']
+2024-10-09 07:44:39,465 - INFO - Unique values in 'CurrencyCode': ['UGX']
+2024-10-09 07:44:39,537 - INFO - Unique values in 'ProviderId': ['ProviderId_6' 'ProviderId_4' 'ProviderId_1' 'ProviderId_5'
+ 'ProviderId_3' 'ProviderId_2']
+2024-10-09 07:44:39,560 - INFO - Unique values in 'ProductId': ['ProductId_10' 'ProductId_6' 'ProductId_1' 'ProductId_21' 'ProductId_3'
+ 'ProductId_15' 'ProductId_11' 'ProductId_19' 'ProductId_4' 'ProductId_5'
+ 'ProductId_20' 'ProductId_9' 'ProductId_24' 'ProductId_14' 'ProductId_2'
+ 'ProductId_13' 'ProductId_22' 'ProductId_8' 'ProductId_7' 'ProductId_27'
+ 'ProductId_12' 'ProductId_16' 'ProductId_23']
+2024-10-09 07:44:39,598 - INFO - Unique values in 'ProductCategory': ['airtime' 'financial_services' 'utility_bill' 'data_bundles' 'tv'
+ 'transport' 'ticket' 'movies' 'other']
+2024-10-09 07:44:39,613 - INFO - Unique values in 'ChannelId': ['ChannelId_3' 'ChannelId_2' 'ChannelId_1' 'ChannelId_5']
+2024-10-09 07:44:39,673 - INFO - Unique values in 'TransactionStartTime': ['2018-11-15T02:18:49Z' '2018-11-15T02:19:08Z' '2018-11-15T02:44:21Z' ...
+ '2019-02-13T09:54:35Z' '2019-02-13T10:01:10Z' '2019-02-13T10:01:28Z']
