@@ -5363,3 +5363,27 @@ Name: count, Length: 94556, dtype: int64
 2024-10-10 05:36:13,590 - INFO - plot of product cataogries by fraud...
 2024-10-10 05:36:13,608 - INFO - plotting the correlation matrix....
 2024-10-10 05:36:14,825 - INFO - plot of  the correlation matrix
+2024-10-10 06:40:24,342 - INFO - Attempting to load data from data.csv
+2024-10-10 06:40:25,315 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:25:08,257 - INFO - Attempting to load data from data.csv
+2024-10-10 07:25:09,171 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:26:16,280 - INFO - Attempting to load data from data.csv
+2024-10-10 07:26:17,009 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:27:12,916 - INFO - Attempting to load data from data.csv
+2024-10-10 07:27:13,748 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:27:33,879 - INFO - Attempting to load data from data.csv
+2024-10-10 07:27:34,736 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:31:47,931 - INFO - Attempting to load data from data.csv
+2024-10-10 07:31:48,685 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:33:29,263 - INFO - Attempting to load data from data.csv
+2024-10-10 07:33:29,952 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:39:15,849 - INFO - Attempting to load data from data.csv
+2024-10-10 07:39:16,630 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:40:17,983 - INFO - Attempting to load data from data.csv
+2024-10-10 07:40:18,782 - INFO - Successfully loaded data from data.csv
+2024-10-10 07:41:11,462 - INFO - Attempting to load data from data.csv
+2024-10-10 07:41:12,144 - INFO - Successfully loaded data from data.csv
+2024-10-10 08:11:51,250 - INFO - Attempting to load data from data.csv
+2024-10-10 08:11:52,101 - INFO - Successfully loaded data from data.csv
+2024-10-10 08:30:23,845 - INFO - Attempting to load data from data.csv
+2024-10-10 08:30:24,620 - INFO - Successfully loaded data from data.csv
