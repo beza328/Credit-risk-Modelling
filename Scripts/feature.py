@@ -6,6 +6,13 @@ import sys
 import os
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+import numpy as np
+import woe
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix
+
 
 # Step 1: Define the path to the logs directory
 log_dir = os.path.join(os.getcwd(), 'logs')  # Use current working directory
@@ -126,7 +133,7 @@ def LabelEncoder(features):
 
     # One-Hot Encoding for nominal categorical variables 
     features = pd.get_dummies(features, columns=['CustomerId'], drop_first=True)
-    
+    return LabelEncoder
     logger.info("Catagorical variables encoded.")
 
 
@@ -140,7 +147,7 @@ def check_missing_value(features):
         features[column].fillna(features[column].mean(), inplace=True) 
     logger.info("Missing value checked")
 
-def scaling(featues):
+def scaling(features):
     logger.info("scaling numerical columns...")
         # Separate numerical features
     numerical_features = features.select_dtypes(include=['float64', 'int64']).columns
@@ -149,4 +156,76 @@ def scaling(featues):
     scaler = MinMaxScaler()
     features[numerical_features] = scaler.fit_transform(features[numerical_features])
     logger.info("Numerical columns Scaled.")
+
+
+# Classify RFMS Features
+def classify_rfms(features):
+
+    logger.info("classifying rfms features....")
+
+    # Define weights for RFMS components
+    w_recency = 0.25
+    w_frequency = 0.25
+    w_volume = 0.25
+
+    # Calculate RFMS Score
+    features['RFMS_Score'] = (features['Transaction_Recency'] * w_recency) + \
+                              (features['Transaction_Frequency'] * w_frequency) + \
+                              (features['Total_Transaction_Volume'] * w_volume)
+
+    # Define good/bad classification based on threshold
+    threshold = features['RFMS_Score'].median()  # This can be adjusted
+    features['Risk_Label'] = np.where(features['RFMS_Score'] > threshold, 'Good', 'Bad')
+
+    # Classify RFMS features
+    classified_features = classify_rfms(features)
+    print(classified_features.head())
+    
+
+
+# Assuming the 'classified_features' DataFrame contains your classified data
+
+def perform_woe_binning(features):
+    logger.info("performing woe...")
+    features['Recency_Bin'] = pd.qcut(features['Transaction_Recency'], q=4, labels=['Very Recent', 'Recent', 'Old', 'Very Old'])
+    features['Frequency_Bin'] = pd.qcut(features['Transaction_Frequency'], q=4, labels=['Very Low', 'Low', 'High', 'Very High'])
+    features['Volume_Bin'] = pd.qcut(features['Total_Transaction_Volume'], q=4, labels=['Very Low', 'Low', 'High', 'Very High'])
+
+    # Calculate WoE
+    woe_df = features.groupby(['Risk_Label', 'Recency_Bin']).size().unstack().fillna(0)
+    woe_df = (woe_df / woe_df.sum(axis=0)).T  # Normalize by the total
+
+    features['Recency_WoE'] = features['Recency_Bin'].map(woe_df.to_dict().get('Good'))
+    
+    # Perform WoE Binning
+    classified_features = classify_rfms(features)
+
+    woe_features = perform_woe_binning(classified_features)
+    print(woe_features[['Transaction_Recency', 'Recency_Bin', 'Recency_WoE']].head())
+    return features
+    logger.info("woe performed..")
+
+
+import matplotlib.pyplot as plt
+
+def visualize_rfms(features):
+    logger.info("visualizing rfms...")
+    plt.figure(figsize=(10, 6))
+    plt.scatter(features['Transaction_Frequency'], features['Total_Transaction_Volume'], 
+                c=features['RFMS_Score'], cmap='viridis', s=50, alpha=0.7)
+    plt.colorbar(label='RFMS Score')
+    plt.xlabel('Transaction Frequency')
+    plt.ylabel('Total Transaction Volume')
+    plt.title('RFMS Score Scatter Plot')
+    plt.axhline(y=features['Total_Transaction_Volume'].median(), color='r', linestyle='--', label='Volume Threshold')
+    plt.axvline(x=features['Transaction_Frequency'].median(), color='b', linestyle='--', label='Frequency Threshold')
+    plt.legend()
+    plt.show()  
+
+    classified_features = classify_rfms(features)
+
+    woe_features = perform_woe_binning(classified_features)
+# Visualize RFMS
+    visualize_rfms(woe_features)
+    logger.info("plot of rfms.")
 
