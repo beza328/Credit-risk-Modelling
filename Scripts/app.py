@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 
 # Load your trained model
-with open('Notebooks/logistic_regression_model.pkl', 'rb') as model_file:
+with open('Notebook/logistic_regression_model.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
 
 # Load feature dataset
