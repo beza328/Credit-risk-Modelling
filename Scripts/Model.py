@@ -133,3 +133,10 @@ def random_forest_model_evaluation(features):
 
     for metric, value in results.items():
         print(f"{metric}: {value}")
+
+
+def fitting_model(X, y):
+    logger.info("fitting logistic regression model...")
+    # Fit the final model on the entire dataset
+    final_model = LogisticRegression(random_state=42)
+    final_model.fit(X, y)
